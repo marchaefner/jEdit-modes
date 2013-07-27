@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE MODE SYSTEM "xmode.dtd"><!--
+
+Converge mode for jEdit by Marc Häfner
+
+### Installation ###
+
+* Copy this file to your `modes` directory. (For details consult the manual.)
+
+* Add this line to your `catalog` file:
+
+    <MODE NAME="converge" FILE="converge.xml" FILE_NAME_GLOB="*.cv"/>
+
+-->
+<MODE>
+  <PROPS>
+    <PROPERTY NAME="lineComment" VALUE="//" />
+    <PROPERTY NAME="indentOpenBrackets" VALUE="({[" />
+    <PROPERTY NAME="indentCloseBrackets" VALUE=")}]" />
+    <PROPERTY NAME="indentNextLines" VALUE=".*:\s*(//.*)?" />
+    <PROPERTY NAME="unindentThisLine" VALUE="^\s*((elif|catch)\s.+|else|finally|exhausted|broken)\s*:\s*(//.*)?" />
+    <PROPERTY NAME="electricKeys" VALUE=":" />
+    <PROPERTY NAME="ignoreWhitespace" VALUE="false" />
+  </PROPS>
+
+  <RULES
+    IGNORE_CASE="FALSE"
+    NO_WORD_SEP="_"
+    HIGHLIGHT_DIGITS="TRUE"
+    DIGIT_RE="0x\p{XDigit}+|\d+(\.\d+)?">
+
+    <!-- Comment -->
+    <EOL_SPAN TYPE="COMMENT1">//</EOL_SPAN>
+
+    <!-- Strings -->
+    <SPAN TYPE="LITERAL1" ESCAPE="\">
+      <BEGIN>"""</BEGIN>
+      <END>"""</END>
+    </SPAN>
+
+    <SPAN TYPE="LITERAL1" ESCAPE="\">
+      <BEGIN>"</BEGIN>
+      <END>"</END>
+    </SPAN>
+
+    <SPAN TYPE="LITERAL1" ESCAPE="\">
+      <BEGIN>'</BEGIN>
+      <END>'</END>
+    </SPAN>
+
+    <!-- Function -->
+    <MARK_PREVIOUS TYPE="FUNCTION" MATCH_TYPE="OPERATOR">(</MARK_PREVIOUS>
+
+    <!-- Operators -->
+    <SEQ TYPE="OPERATOR">Dict{</SEQ>
+    <SEQ TYPE="OPERATOR">Set{</SEQ>
+    <SEQ TYPE="OPERATOR">[d|</SEQ>
+    <SEQ TYPE="OPERATOR">\\</SEQ>
+    <SEQ TYPE="OPERATOR">+</SEQ>
+    <SEQ TYPE="OPERATOR">-</SEQ>
+    <SEQ TYPE="OPERATOR">*</SEQ>
+    <SEQ TYPE="OPERATOR">/</SEQ>
+    <SEQ TYPE="OPERATOR">{</SEQ>
+    <SEQ TYPE="OPERATOR">}</SEQ>
+    <SEQ TYPE="OPERATOR">[</SEQ>
+    <SEQ TYPE="OPERATOR">]</SEQ>
+    <SEQ TYPE="OPERATOR">,</SEQ>
+    <SEQ TYPE="OPERATOR">=</SEQ>
+    <SEQ TYPE="OPERATOR">:</SEQ>
+    <SEQ TYPE="OPERATOR">.</SEQ>
+    <SEQ TYPE="OPERATOR">;</SEQ>
+    <SEQ TYPE="OPERATOR">(</SEQ>
+    <SEQ TYPE="OPERATOR">)</SEQ>
+    <SEQ TYPE="OPERATOR">&lt;</SEQ>
+    <SEQ TYPE="OPERATOR">&gt;</SEQ>
+    <SEQ TYPE="OPERATOR">&amp;</SEQ>
+    <SEQ TYPE="OPERATOR">%</SEQ>
+    <SEQ TYPE="OPERATOR">$</SEQ>
+    <SEQ TYPE="OPERATOR">?</SEQ>
+    <SEQ TYPE="OPERATOR">!</SEQ>
+    <SEQ TYPE="OPERATOR">|</SEQ>
+
+    <!-- Reserved words (as per Tokenizer.cv) -->
+    <KEYWORDS>
+      <KEYWORD1>if</KEYWORD1>
+      <KEYWORD1>ndif</KEYWORD1>
+      <KEYWORD1>then</KEYWORD1>
+      <KEYWORD1>elif</KEYWORD1>
+      <KEYWORD1>else</KEYWORD1>
+      <KEYWORD1>when</KEYWORD1>
+      <KEYWORD1>class</KEYWORD1>
+      <KEYWORD1>proto</KEYWORD1>
+      <KEYWORD1>func</KEYWORD1>
+      <KEYWORD1>while</KEYWORD1>
+      <KEYWORD1>yield</KEYWORD1>
+      <KEYWORD1>break</KEYWORD1>
+      <KEYWORD1>where</KEYWORD1>
+      <KEYWORD1>return</KEYWORD1>
+      <KEYWORD1>nonlocal</KEYWORD1>
+      <KEYWORD1>for</KEYWORD1>
+      <KEYWORD1>pass</KEYWORD1>
+      <KEYWORD1>import</KEYWORD1>
+      <KEYWORD1>try</KEYWORD1>
+      <KEYWORD1>catch</KEYWORD1>
+      <KEYWORD1>into</KEYWORD1>
+      <KEYWORD1>is</KEYWORD1>
+      <KEYWORD1>in</KEYWORD1>
+      <KEYWORD1>not</KEYWORD1>
+      <KEYWORD1>continue</KEYWORD1>
+      <KEYWORD1>raise</KEYWORD1>
+      <KEYWORD1>exbi</KEYWORD1>
+      <KEYWORD1>every</KEYWORD1>
+      <KEYWORD1>exhausted</KEYWORD1>
+      <KEYWORD1>broken</KEYWORD1>
+      <KEYWORD1>as</KEYWORD1>
+      <KEYWORD1>assert</KEYWORD1>
+      <KEYWORD1>bound_func</KEYWORD1>
+      <KEYWORD1>unbound_func</KEYWORD1>
+      <KEYWORD1>rename</KEYWORD1>
+      <KEYWORD1>metaclass</KEYWORD1>
+      <KEYWORD1>fail</KEYWORD1>
+    </KEYWORDS>
+  </RULES>
+</MODE>
+<!-- :noTabs=true:tabSize=2:indentSize=2: -->

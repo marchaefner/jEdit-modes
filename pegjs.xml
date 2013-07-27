@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!DOCTYPE MODE SYSTEM "xmode.dtd"><!--
+
+PEG.js mode for jEdit by Marc Häfner
+
+### Installation ###
+
+* Copy this file to your `modes` directory. (For details consult the manual.)
+
+* Add this line to your `catalog` file:
+
+    <MODE NAME="pegjs" FILE="pegjs.xml" FILE_NAME_GLOB="*.pegjs"/>
+
+-->
+<MODE>
+  <!-- Properties from javascript.xml -->
+  <PROPS>
+    <PROPERTY NAME="commentStart" VALUE="/*" />
+    <PROPERTY NAME="commentEnd" VALUE="*/" />
+    <PROPERTY NAME="lineComment" VALUE="//" />
+    <PROPERTY NAME="wordBreakChars" VALUE=",+-=&lt;&gt;/?^&amp;*" />
+
+    <!-- Auto indent -->
+    <PROPERTY NAME="indentOpenBrackets" VALUE="{[" />
+    <PROPERTY NAME="indentCloseBrackets" VALUE="]}" />
+    <PROPERTY NAME="unalignedOpenBrackets" VALUE="(" />
+    <PROPERTY NAME="unalignedCloseBrackets" VALUE=")" />
+    <PROPERTY NAME="indentNextLine"
+      VALUE="\s*(((if|while)\s*\(|else\s*|else\s+if\s*\(|for\s*\(.*\))[^{;]*)" />
+    <PROPERTY NAME="unindentThisLine"
+      VALUE="^.*(default:\s*|case.*:.*)$" />
+    <PROPERTY NAME="electricKeys" VALUE=":" />
+  </PROPS>
+
+  <!-- MAIN - PEG.js highlighting -->
+  <RULES
+    IGNORE_CASE="FALSE"
+    NO_WORD_SEP="$_"
+    HIGHLIGHT_DIGITS="FALSE">
+
+    <!-- Comments -->
+    <SPAN TYPE="COMMENT1">
+      <BEGIN>/*</BEGIN>
+      <END>*/</END>
+    </SPAN>
+
+    <EOL_SPAN TYPE="COMMENT2" AT_LINE_START="FALSE">//</EOL_SPAN>
+
+    <!-- Strings -->
+    <SPAN TYPE="LITERAL1" NO_LINE_BREAK="TRUE" ESCAPE="\">
+      <BEGIN>"</BEGIN>
+      <END>"</END>
+    </SPAN>
+
+    <SPAN TYPE="LITERAL1" NO_LINE_BREAK="TRUE" ESCAPE="\">
+      <BEGIN>'</BEGIN>
+      <END>'</END>
+    </SPAN>
+
+    <!-- Character classes -->
+    <SPAN TYPE="LITERAL2" MATCH_TYPE="OPERATOR" NO_LINE_BREAK="TRUE" ESCAPE="\">
+      <BEGIN>[</BEGIN>
+      <END>]</END>
+    </SPAN>
+
+    <!-- Parser action -->
+    <SPAN MATCH_TYPE="OPERATOR" DELEGATE="ACTION">
+      <BEGIN>{</BEGIN>
+      <END>}</END>
+    </SPAN>
+
+    <!-- Label -->
+    <MARK_PREVIOUS TYPE="LABEL" MATCH_TYPE="OPERATOR">:</MARK_PREVIOUS>
+
+    <!-- Operators -->
+    <SEQ TYPE="OPERATOR">(</SEQ>
+    <SEQ TYPE="OPERATOR">)</SEQ>
+    <SEQ TYPE="OPERATOR">=</SEQ>
+    <SEQ TYPE="OPERATOR">;</SEQ>
+    <SEQ TYPE="OPERATOR">/</SEQ>
+    <SEQ TYPE="OPERATOR">&amp;</SEQ>
+    <SEQ TYPE="OPERATOR">!</SEQ>
+    <SEQ TYPE="OPERATOR">$</SEQ>
+    <SEQ TYPE="OPERATOR">?</SEQ>
+    <SEQ TYPE="OPERATOR">*</SEQ>
+    <SEQ TYPE="OPERATOR">+</SEQ>
+    <SEQ TYPE="OPERATOR">.</SEQ>
+  </RULES>
+
+  <!-- ACTION - JavaScript highlighting (and handling for nested curlies)-->
+  <RULES SET="ACTION"
+    IGNORE_CASE="FALSE"
+    NO_WORD_SEP="$_"
+    HIGHLIGHT_DIGITS="TRUE"
+    DIGIT_RE="(0x[\p{XDigit}]+[lL]?|[\p{Digit}]+(e[\p{Digit}]*)?[lLdDfF]?)">
+
+    <SPAN MATCH_TYPE="OPERATOR" DELEGATE="ACTION">
+      <BEGIN>{</BEGIN>
+      <END>}</END>
+    </SPAN>
+
+    <IMPORT DELEGATE="javascript::MAIN" />
+  </RULES>
+</MODE>
+<!-- :noTabs=true:tabSize=2:indentSize=2: -->
