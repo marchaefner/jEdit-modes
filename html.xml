@@ -39,11 +39,8 @@
 			<END>&gt;</END>
 		</SPAN>
 
-		<!-- SGML entities -->
-		<SPAN TYPE="LITERAL2" NO_WORD_BREAK="TRUE">
-			<BEGIN>&amp;</BEGIN>
-			<END>;</END>
-		</SPAN>
+		<!-- SGML character entities -->
+		<IMPORT DELEGATE="CHARACTER_ENTITIES" />
 	</RULES>
 
 	<RULES SET="TAGS" DEFAULT="MARKUP">
@@ -60,11 +57,11 @@
 		</SPAN_REGEXP>
 
 		<!-- NOTE: no ESCAPE for quotes, at least for attributes; e.g onclick="alert(\"foo\");" is invalid! -->
-		<SPAN TYPE="LITERAL1" DELEGATE="STRING">
+		<SPAN TYPE="LITERAL1" DELEGATE="ATTRIBUTE">
 			<BEGIN>"</BEGIN>
 			<END>"</END>
 		</SPAN>
-		<SPAN TYPE="LITERAL1" DELEGATE="STRING">
+		<SPAN TYPE="LITERAL1" DELEGATE="ATTRIBUTE">
 			<BEGIN>'</BEGIN>
 			<END>'</END>
 		</SPAN>
@@ -266,11 +263,15 @@
 		<IMPORT DELEGATE="TAGS"/>
 	</RULES>
 
-	<RULES SET="STRING" DEFAULT="LITERAL1">
-		<SPAN TYPE="LITERAL2" NO_WORD_BREAK="TRUE">
-			<BEGIN>&amp;</BEGIN>
-			<END>;</END>
-		</SPAN>
+	<RULES SET="ATTRIBUTE" DEFAULT="LITERAL1">
+		<IMPORT DELEGATE="CHARACTER_ENTITIES" />
+	</RULES>
+
+	<!-- SGML character entities - to be used with IMPORT tag -->
+	<RULES SET="CHARACTER_ENTITIES">
+		<SEQ_REGEXP TYPE="LITERAL2"
+					HASH_CHAR="&amp;">&amp;(#\d+|#x\p{XDigit}+|\p{Alnum}+);</SEQ_REGEXP>
+		<SEQ TYPE="INVALID">&amp;</SEQ>
 	</RULES>
 </MODE>
 <!-- :noTabs=false: -->
