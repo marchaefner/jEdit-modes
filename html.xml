@@ -16,13 +16,13 @@
 		</SPAN>
 
 		<!-- JavaScript -->
-		<SPAN_REGEXP TYPE="MARKUP" DELEGATE="SCRIPT_TAG" HASH_CHAR="&lt;">
+		<SPAN_REGEXP TYPE="MARKUP" DELEGATE="JAVASCRIPT" HASH_CHAR="&lt;">
 			<BEGIN>&lt;(?=SCRIPT\b)</BEGIN>
 			<END REGEXP="TRUE">(?i)(?=&lt;/SCRIPT\b)</END>
 		</SPAN_REGEXP>
 
 		<!-- stylesheet -->
-		<SPAN_REGEXP TYPE="MARKUP" DELEGATE="STYLE_TAG" HASH_CHAR="&lt;">
+		<SPAN_REGEXP TYPE="MARKUP" DELEGATE="CSS" HASH_CHAR="&lt;">
 			<BEGIN>&lt;(?=STYLE\b)</BEGIN>
 			<END REGEXP="TRUE">(?i)(?=&lt;/STYLE\b)</END>
 		</SPAN_REGEXP>
@@ -198,7 +198,7 @@
 	</RULES>
 
 	<!-- SCRIPT tag: Highlight tag and switch to language ruleset. -->
-	<RULES SET="SCRIPT_TAG" DEFAULT="MARKUP">
+	<RULES SET="JAVASCRIPT" DEFAULT="MARKUP">
 		<!--If the content of the TYPE attribute is recognized, switch to
 			language specific ruleset. -->
 		<SEQ_REGEXP TYPE="MARKUP" DELEGATE="COFFEESCRIPT_TAG"
@@ -258,7 +258,7 @@
 	</RULES>
 
 	<!-- STYLE tag: Highlight tag and delegate to CSS mode. -->
-	<RULES SET="STYLE_TAG" DEFAULT="MARKUP">
+	<RULES SET="CSS" DEFAULT="MARKUP">
 		<SEQ TYPE="MARKUP" DELEGATE="css::MAIN">&gt;</SEQ>
 		<IMPORT DELEGATE="TAGS"/>
 	</RULES>
